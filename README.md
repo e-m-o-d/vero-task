@@ -80,3 +80,43 @@ headers = {
 response = requests.request("POST", url, json=payload, headers=headers)
 print(response.text)
 ```
+
+
+
+# Solution
+
+## Requirements
+
+Required python modules are:
+```
+fastapi, uvicorn, python-multipart, python-openpyxl
+```
+
+## Run
+
+### Server
+
+> ./server.py
+
+See the stdout log to check the processing, here the server prints a bit verbose log of its operations.
+
+### Client
+
+> ./client.py
+
+This will produce just a simple table containing only rnr column, as described above.
+
+Parameters list:
+* Use -k <keys list here> param to specify space-delimited list of keys from the vehicle data (CSV or active data) to be included in the table
+* Use -c param to set 'hu' based coloring mode (see specification above)
+* Use -h to read client usage help
+
+Here are some real-use examples:
+
+> ./client.py -c -k gruppe kurzname
+
+> ./client.py -k rnr gruppe kurzname hu labelIds info -c
+
+> ./client.py -c -k rnr gruppe kurzname hu labelIds lagerort editedOn
+
+The final result is stored in vehicles_<iso_date>.xlsx file (ex: vehicles_2024-03-11.xlsx).
